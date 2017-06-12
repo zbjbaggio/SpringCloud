@@ -7,7 +7,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ServerzipkinApplicationTests {
+public class ServerZipkinApplicationTests {
+
 
 	@Test
 	public void contextLoads() {
