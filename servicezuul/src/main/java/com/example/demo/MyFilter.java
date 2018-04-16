@@ -2,16 +2,16 @@ package com.example.demo;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Component
+@Slf4j
 public class MyFilter extends ZuulFilter {
 
-    private static Logger log = LoggerFactory.getLogger(MyFilter.class);
     @Override
     public String filterType() {
         return "pre";
@@ -24,6 +24,12 @@ public class MyFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
+        RequestContext context = RequestContext.getCurrentContext();
+        HttpServletRequest request = context.getRequest();
+        log.info(request.getRequestURI());
+        if (!StringUtils.contains(request.getRequestURI(), "/admin/")) {
+            return false;
+        }
         return true;
     }
 
